@@ -13,6 +13,13 @@ return require('packer').startup(function(use)
             config = function() require("zenburn").setup() end
         }
 
+        use {
+            'nvim-tree/nvim-tree.lua',
+            requires = {
+                'nvim-tree/nvim-web-devicons', -- optional, for file icons
+            },
+            tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        }
         use 'gbprod/nord.nvim'
         use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
         use('nvim-treesitter/playground')
