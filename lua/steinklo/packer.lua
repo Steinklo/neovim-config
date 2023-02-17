@@ -20,6 +20,21 @@ return require('packer').startup(function(use)
         use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
         use('nvim-treesitter/playground')
 
+        -- Digg in the pig
+
+        use {
+            "folke/which-key.nvim",
+            config = function()
+                vim.o.timeout = true
+                vim.o.timeoutlen = 300
+                require("which-key").setup {
+                    -- your configuration comes here
+                    -- or leave it empty to use the default settings
+                    -- refer to the configuration section below
+                }
+            end
+        }
+
         -- Navigation
         use('theprimeagen/harpoon')
         use {

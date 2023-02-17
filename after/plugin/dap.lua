@@ -1,3 +1,22 @@
+local dap = require('dap')
+
+dap.adapters.coreclr = {
+    type = 'executable',
+    command = 'C:/Users/david/AppData/Local/bin/netcoredbg/netcoredbg.exe',
+    args = { '--interpreter=vscode' }
+}
+
+dap.configurations.cs = {
+    {
+        type = "coreclr",
+        name = "launch - netcoredbg",
+        request = "launch",
+        program = function()
+            return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
+        end,
+    },
+}
+
 vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
 vim.keymap.set('n', '<F6>', function() require('dap').step_over() end)
 vim.keymap.set('n', '<F7>', function() require('dap').step_into() end)
