@@ -18,10 +18,10 @@ dap.configurations.cs = {
 }
 
 vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "debug continue" })
-vim.keymap.set('n', '<Leader>do', function() require('dap').step_over() end, { desc = "debug step over" })
+vim.keymap.set('n', '<Leader>dj', function() require('dap').step_over() end, { desc = "debug step over" })
 vim.keymap.set('n', '<Leader>dk', function() require('dap').step_back() end, { desc = "debug step back" })
-vim.keymap.set('n', '<Leader>di', function() require('dap').step_into() end, { desc = "debug step into" })
-vim.keymap.set('n', '<Leader>dc', function() require('dap').step_out() end)
+vim.keymap.set('n', '<Leader>dl', function() require('dap').step_into() end, { desc = "debug step into" })
+vim.keymap.set('n', '<Leader>dh', function() require('dap').step_out() end, { desc = "debug step out" })
 vim.keymap.set('n', '<Leader>dt', function() require('dap').toggle_breakpoint() end, { desc = "debug toggle breakpoint" })
 vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
     require('dap.ui.widgets').hover()
