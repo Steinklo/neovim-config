@@ -9,7 +9,7 @@ return require('packer').startup(function(use)
     }
 
     -- Themes and colors
-    use 'gbprod/nord.nvim'
+    use 'folke/tokyonight.nvim'
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
     use('nvim-treesitter/playground')
 
