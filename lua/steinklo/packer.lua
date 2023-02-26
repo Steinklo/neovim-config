@@ -12,6 +12,7 @@ return require('packer').startup(function(use)
     use 'folke/tokyonight.nvim'
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
     use('nvim-treesitter/playground')
+    use('jlcrochet/vim-razor')
 
     -- Digg in the pig
 
@@ -27,6 +28,7 @@ return require('packer').startup(function(use)
             }
         end
     }
+
 
     -- Navigation
     use('theprimeagen/harpoon')

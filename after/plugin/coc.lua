@@ -5,6 +5,7 @@ vim.g.coc_global_extensions = {
     "coc-yaml",
     "coc-python",
     "coc-go",
+    "coc-html",
     "coc-sumneko-lua",
     "coc-explorer"
 }
