@@ -48,7 +48,7 @@ keyset("n", "]g", "<Plug>(coc-diagnostic-next)", { silent = true, desc = "next e
 -- GoTo code navigation
 keyset("n", "gd", "<Plug>(coc-definition)", { silent = true, desc = "go to definition" })
 keyset("n", "gy", "<Plug>(coc-type-definition)", { silent = true, desc = "type definition" })
-keyset("n", "gD", "<Plug>(coc-implementation)", { silent = true, desc = "go to implementation" })
+keyset("n", "gi", "<Plug>(coc-implementation)", { silent = true, desc = "go to implementation" })
 keyset("n", "gr", "<Plug>(coc-references)", { silent = true, desc = "show references" })
 --
 -- Use K to show documentation in preview window
