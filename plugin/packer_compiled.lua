@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "C:\\Users\\david\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\coc.nvim",
     url = "https://github.com/neoclide/coc.nvim"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "C:\\Users\\david\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
   harpoon = {
     loaded = true,
     path = "C:\\Users\\david\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\harpoon",
@@ -98,6 +103,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\david\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neotest-dotnet",
     url = "https://github.com/Issafalcon/neotest-dotnet"
+  },
+  ["neotest-go"] = {
+    loaded = true,
+    path = "C:\\Users\\david\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neotest-go",
+    url = "https://github.com/nvim-neotest/neotest-go"
   },
   ["nvim-dap"] = {
     loaded = true,

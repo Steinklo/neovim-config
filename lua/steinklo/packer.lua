@@ -1,7 +1,6 @@
 vim.cmd.packadd('packer.nvim')
 
 return require('packer').startup(function(use)
-    -- Packer can manage itself
     use 'wbthomason/packer.nvim'
     use {
         "phha/zenburn.nvim",
@@ -14,8 +13,10 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/playground')
     use('jlcrochet/vim-razor')
 
-    -- Digg in the pig
+    -- Copilot
+    use { 'github/copilot.vim', branch = 'release' }
 
+    -- Digg in the pig
     use {
         "folke/which-key.nvim",
         config = function()
@@ -28,7 +29,6 @@ return require('packer').startup(function(use)
             }
         end
     }
-
 
     -- Navigation
     use('theprimeagen/harpoon')
@@ -49,13 +49,13 @@ return require('packer').startup(function(use)
     use("theHamsta/nvim-dap-virtual-text")
     use("nvim-telescope/telescope-dap.nvim")
 
-
     -- Tests
     use {
         "nvim-neotest/neotest",
         requires = {
             "nvim-lua/plenary.nvim",
             "Issafalcon/neotest-dotnet",
+            "nvim-neotest/neotest-go",
             "nvim-treesitter/nvim-treesitter",
             "antoinemadec/FixCursorHold.nvim"
         }
