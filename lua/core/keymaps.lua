@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", '<Space>', '<Nop>')
+vim.keymap.set("n", "<Space>", "<Nop>")
 
 -- Move lines in visaul mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -22,7 +22,6 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 
 -- Codecompletion
 vim.keymap.set("c", "<Tab>", function()
-     if vim.fn.pumvisible() == 1 then return '<c-y>' end
-         return '<cr>'
-         end, { expr = true })
-
+    if vim.fn.pumvisible() == 1 then return '<c-y>' end
+    return '<cr>'
+end, { expr = true })
