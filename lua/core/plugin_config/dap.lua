@@ -17,16 +17,28 @@ dap.configurations.cs = {
     },
 }
 
-vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "debug continue" })
-vim.keymap.set('n', '<Leader>dj', function() require('dap').step_over() end, { desc = "debug step over" })
-vim.keymap.set('n', '<Leader>dk', function() require('dap').step_back() end, { desc = "debug step back" })
-vim.keymap.set('n', '<Leader>dl', function() require('dap').step_into() end, { desc = "debug step into" })
-vim.keymap.set('n', '<Leader>dh', function() require('dap').step_out() end, { desc = "debug step out" })
-vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end, { desc = "debug toggle breakpoint" })
-vim.keymap.set({ 'n', 'v' }, '<Leader>du', function()
-    require('dap.ui.widgets').hover()
-end, { desc = "debug hover" })
+dap.adapters.go = {
+  type = 'executable';
+  command = 'node';
+  args = {'C:/Users/david/vscode-go/dist/debugAdapter.js'};
+}
+dap.configurations.go = {
+  {
+    type = 'go';
+    name = 'Debug';
+    request = 'launch';
+    showLog = false;
+    program = "${file}";
+    dlvToolPath = vim.fn.exepath('dlv')  -- Adjust to where delve is installed
+  },
+} 
 
+vim.keymap.set('n', '<Leader>dc', function() require('dap').continue() end, { desc = "Debug continue" })
+vim.keymap.set('n', '<Leader>dj', function() require('dap').step_over() end, { desc = "Debug step over" })
+vim.keymap.set('n', '<Leader>dk', function() require('dap').step_back() end, { desc = "Debug step back" })
+vim.keymap.set('n', '<Leader>dl', function() require('dap').step_into() end, { desc = "Debug step into" })
+vim.keymap.set('n', '<Leader>dh', function() require('dap').step_out() end, { desc = "Debug step out" })
+vim.keymap.set('n', '<Leader>dt', function() require('dap').toggle_breakpoint() end, { desc = "Debug toggle breakpoint" })
 
 -- UI
 
@@ -123,3 +135,4 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
     dapui.close()
 end
+
