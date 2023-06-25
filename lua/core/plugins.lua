@@ -76,6 +76,7 @@ require('lazy').setup({
 
   -- Dap
   'mfussenegger/nvim-dap',
+  'leoluz/nvim-dap-go',
   'rcarriga/nvim-dap-ui',
   'simrat39/rust-tools.nvim',
 
