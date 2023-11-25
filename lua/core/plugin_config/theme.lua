@@ -1,4 +1,4 @@
-require('onedark').setup {
-    style = 'darker'
+require('tokyonight').setup {
+    style = 'night',
 }
-require('onedark').load()
+require('tokyonight').load()
