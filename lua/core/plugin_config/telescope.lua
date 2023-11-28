@@ -2,6 +2,7 @@ local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "[F]ind [F]iles" })
 vim.keymap.set('n', '<leader>fg', builtin.git_files, { desc = "[F]ind [G]itfiles" })
+vim.keymap.set('n', '<leader>fi', builtin.live_grep, { desc = "[F]ind [I]n files" })
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 
@@ -14,6 +15,3 @@ vim.keymap.set('n', '<leader>/', function()
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer' })
-
-
-
