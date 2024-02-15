@@ -13,11 +13,11 @@ require('dap-go').setup {
 }
 -- Keymap
 vim.keymap.set('n', '<leader>du', '<cmd>lua require("dapui").toggle()<cr>', { desc = "Toggle DapUI" })
-vim.keymap.set('n', '<Leader>c', function() require('dap').continue() end, { desc = "Debug continue" })
-vim.keymap.set('n', '<Leader>j', function() require('dap').step_over() end, { desc = "Debug step over" })
-vim.keymap.set('n', '<Leader>k', function() require('dap').step_back() end, { desc = "Debug step back" })
-vim.keymap.set('n', '<Leader>l', function() require('dap').step_into() end, { desc = "Debug step into" })
-vim.keymap.set('n', '<Leader>h', function() require('dap').step_out() end, { desc = "Debug step out" })
+vim.keymap.set('n', '<F5>', function() require('dap').continue() end, { desc = "Debug continue" })
+vim.keymap.set('n', '<F6>', function() require('dap').step_over() end, { desc = "Debug step over" })
+vim.keymap.set('n', '<F7>', function() require('dap').step_back() end, { desc = "Debug step back" })
+vim.keymap.set('n', '<F8>', function() require('dap').step_into() end, { desc = "Debug step into" })
+vim.keymap.set('n', '<F9>', function() require('dap').step_out() end, { desc = "Debug step out" })
 vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end, { desc = "Debug toggle breakpoint" })
 
 -- UI
