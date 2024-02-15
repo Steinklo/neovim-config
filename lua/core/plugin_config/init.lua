@@ -1,6 +1,7 @@
 require("core.plugin_config.comment")
 require("core.plugin_config.dap")
 require("core.plugin_config.fugitive")
+require("core.plugin_config.harpoon")
 require("core.plugin_config.nvim-tree")
 require("core.plugin_config.treesitter")
 require("core.plugin_config.telescope")

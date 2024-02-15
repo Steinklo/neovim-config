@@ -1,4 +1,6 @@
-require('tokyonight').setup {
-    style = 'night',
+require('kanagawa').load()
+
+require('lualine').setup {
+    options = { theme = 'kanagawa' },
+    ...
 }
-require('tokyonight').load()
