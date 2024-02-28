@@ -17,8 +17,10 @@ vim.keymap.set({ "n", "v" }, "x", [["*x]])
 -- Text editing
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace text" })
 
--- Quality of life
-vim.keymap.set("n", "<Leader>q", ":q <CR>")
+-- Buffer
+vim.keymap.set("n", "<s-h>", ":bp <CR>")
+vim.keymap.set("n", "<s-l>", ":bn <CR>")
+vim.keymap.set("n", "<leader>q", ":bd <CR>", { desc = "Close buffer" })
 
 -- Navigation
 vim.keymap.set("n", "<C-o>", "<C-o>zz")
