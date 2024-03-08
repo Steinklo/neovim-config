@@ -1,7 +1,10 @@
-require('gruvbox').load()
+require("catppuccin").setup({
+    flavour = "mocha", -- latte, frappe, macchiato, mocha
+})
+require("catppuccin").load()
 
 require('lualine').setup {
-    options = { theme = 'gruvbox' },
+    options = { theme = 'catppuccin', flavour = "mocha" },
     sections = {
         lualine_a = {
             {
