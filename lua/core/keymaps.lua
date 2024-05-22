@@ -22,6 +22,18 @@ vim.keymap.set("n", "<s-h>", ":bp <CR>")
 vim.keymap.set("n", "<s-l>", ":bn <CR>")
 vim.keymap.set("n", "<leader>q", ":bd <CR>", { desc = "Close buffer" })
 
+function CloseOtherBuffers()
+    local current_buf = vim.fn.bufnr('%')
+    for _, buf in ipairs(vim.fn.getbufinfo({ buflisted = 1 })) do
+        if buf.bufnr ~= current_buf then
+            vim.cmd('silent! w | bdelete ' .. buf.bufnr)
+        end
+    end
+end
+
+vim.api.nvim_set_keymap('n', '<leader>Q', ':lua CloseOtherBuffers()<CR>',
+    { noremap = true, silent = true, desc = "Close all buffers except current" })
+
 -- Navigation
 vim.keymap.set("n", "<C-o>", "<C-o>zz")
 vim.keymap.set("n", "<C-i>", "<C-i>zz")
