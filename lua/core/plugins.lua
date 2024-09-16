@@ -46,6 +46,7 @@ require('lazy').setup({
   },
   -- Filetree
   'nvim-tree/nvim-tree.lua',
+  'jose-elias-alvarez/null-ls.nvim',
 
   -- Autocompletion
   'github/copilot.vim',
@@ -118,7 +119,7 @@ require('lazy').setup({
   'simrat39/rust-tools.nvim',
 
   -- Theme
-  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true},
+  { "ellisonleao/gruvbox.nvim",            priority = 1000,  config = true },
   -- Statusline
   {
     'nvim-lualine/lualine.nvim',
