@@ -5,7 +5,7 @@ vim.cmd('filetype plugin indent on')
 vim.cmd('syntax enable')
 
 -- Set the custom viewer for VimTeX to SumatraPDF with the full path
-vim.g.vimtex_view_method = 'SumatraPDF'
+vim.g.vimtex_view_method = 'general'
 vim.g.vimtex_view_general_viewer = 'C:/Users/david/AppData/Local/SumatraPDF/SumatraPDF.exe'
 vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
 
