@@ -49,6 +49,22 @@ local on_attach = function(client, bufnr)
   end
 end
 
+local function reformat_buffer()
+  vim.cmd('normal! gggqG')
+end
+
+-- Autocommand to set up `textwidth` and auto-wrap on save for markdown and tex files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'markdown', 'tex' },
+  callback = function()
+    vim.opt_local.textwidth = 120
+  end,
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.md', '*.tex' },
+  callback = reformat_buffer,
+})
 -- Define the servers to be installed
 local servers = {
   clangd = {},
