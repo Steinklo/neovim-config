@@ -118,7 +118,7 @@ require('lazy').setup({
   'simrat39/rust-tools.nvim',
 
   -- Theme
-  "catppuccin/nvim",
+  { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true},
   -- Statusline
   {
     'nvim-lualine/lualine.nvim',
