@@ -61,8 +61,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  ['typescript-language-server'] = {},   -- Correct server name for tsserver
-  eslint = {},                           -- Ensure eslint is configured properly
+  eslint = {}, -- Ensure eslint is configured properly
 }
 
 -- Setup neovim lua configuration
@@ -94,7 +93,7 @@ local null_ls = require('null-ls')
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.prettier,     -- Use Prettier as a formatter
+    null_ls.builtins.formatting.prettier, -- Use Prettier as a formatter
     -- Add more formatters or linters as needed
   },
   on_attach = on_attach,
