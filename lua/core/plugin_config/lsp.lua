@@ -33,38 +33,10 @@ local on_attach = function(client, bufnr)
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
 
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
-
-  -- Autoformat on save if the server supports formatting
-  if client.server_capabilities.documentFormattingProvider then
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format()
-      end,
-    })
-  end
+  vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format({ async = true }) end,
+    { buffer = bufnr, desc = '[F]ormat the current buffer' })
 end
 
-local function reformat_buffer()
-  vim.cmd('normal! gggqG')
-end
-
--- Autocommand to set up `textwidth` and auto-wrap on save for markdown and tex files
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = { 'markdown', 'tex' },
-  callback = function()
-    vim.opt_local.textwidth = 120
-  end,
-})
-
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.md', '*.tex' },
-  callback = reformat_buffer,
-})
 -- Define the servers to be installed
 local servers = {
   clangd = {},
@@ -77,7 +49,6 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  eslint = {}, -- Ensure eslint is configured properly
 }
 
 -- Setup neovim lua configuration
@@ -104,12 +75,14 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
--- Set up null-ls for additional formatting
+-- Set up null-ls for additional formatting (Prettier and other formatters)
 local null_ls = require('null-ls')
 
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.prettier, -- Use Prettier as a formatter
+    null_ls.builtins.formatting.prettier, -- Prettier for JS/TS/HTML/CSS formatting
+    null_ls.builtins.formatting.stylua,   -- Lua formatter
+    null_ls.builtins.diagnostics.eslint,  -- ESLint for JS/TS linting
     -- Add more formatters or linters as needed
   },
   on_attach = on_attach,
