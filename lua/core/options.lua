@@ -37,6 +37,14 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 
+function WordCount()
+  local wc = vim.fn.wordcount()
+  print("Words: " .. wc.words)
+end
+
+vim.keymap.set("n", "<leader>wc", WordCount, { desc = "Count words in buffer" })
+
+
 if vim.fn.has('autocmd') == 1 then
   vim.api.nvim_create_augroup("format_tex_on_save", { clear = true })
   vim.api.nvim_create_autocmd("BufWritePre", {
