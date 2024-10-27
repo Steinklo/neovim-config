@@ -30,36 +30,49 @@ require('lualine').setup {
         lualine_a = {
             {
                 'buffers',
-                show_filename_only = true,       -- Shows shortened relative path when set to false.
-                hide_filename_extension = false, -- Hide filename extension when set to true.
-                show_modified_status = true,     -- Shows indicator when the buffer is modified.
-
-                mode = 0,                        -- 0: Shows buffer name
-                -- 1: Shows buffer index
-                -- 2: Shows buffer name + buffer index
-                -- 3: Shows buffer number
-                -- 4: Shows buffer name + buffer number
-
-                max_length = vim.o.columns * 2 / 3, -- Maximum width of buffers component,
-                -- it can also be a function that returns
-                -- the value of `max_length` dynamically.
+                show_filename_only = true,
+                hide_filename_extension = false,
+                show_modified_status = true,
+                mode = 0,
+                max_length = vim.o.columns * 2 / 3,
                 filetype_names = {
                     TelescopePrompt = 'Telescope',
                     dashboard = 'Dashboard',
                     packer = 'Packer',
                     fzf = 'FZF',
                     alpha = 'Alpha'
-                }, -- Shows specific buffer name for that filetype ( { `filetype` = `buffer_name`, ... } )
-
-                -- Automatically updates active buffer color to match color of other components (will be overidden if buffers_color is set)
-                use_mode_colors = ture,
-
-                symbols = {
-                    modified = ' ●', -- Text to show when the buffer is modified
-                    alternate_file = '#', -- Text to show to identify the alternate file
-                    directory = '', -- Text to show when the buffer is a directory
                 },
+                use_mode_colors = true,
+                symbols = {
+                    modified = ' ●',
+                    alternate_file = '#',
+                    directory = '',
+                },
+            }
+        },
+        lualine_c = {
+            'filename',
+            {
+                -- Custom word count component for .tex files
+                function()
+                    if vim.bo.filetype == 'tex' then
+                        local text = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+                        local content = table.concat(text, " ")
+                        -- Count words ignoring LaTeX commands
+                        local _, word_count = content:gsub("%S+", function(word)
+                            return not word:match("^\\") and word
+                        end)
+                        return "Words: " .. word_count
+                    else
+                        return ''
+                    end
+                end,
+                cond = function()
+                    return vim.bo.filetype == 'tex'
+                end,
+                color = { fg = '#b8bb26', gui = 'bold' }, -- Optional styling for the word count display
             }
         }
     }
 }
+
