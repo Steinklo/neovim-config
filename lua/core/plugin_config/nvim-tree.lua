@@ -8,6 +8,7 @@ require("nvim-tree").setup({
   filters = {
     custom = {
       "\\.aux$",
+      "\\.pdf$",
       "\\.lof$",
       "\\.log$",
       "\\.lot$",

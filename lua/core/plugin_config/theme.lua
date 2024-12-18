@@ -24,6 +24,93 @@ require("gruvbox").setup({
 })
 vim.cmd("colorscheme gruvbox")
 
+-- Word count function for LaTeX documents
+local function get_included_files(filepath)
+    local files = {}
+    local file = io.open(filepath, "r")
+
+    if file then
+        for line in file:lines() do
+            -- Look for \include or \input commands
+            local include_file = line:match("\\include{([^}]+)}") or line:match("\\input{([^}]+)}")
+            if include_file then
+                -- Add .tex extension if it's missing
+                if not include_file:match("%.tex$") then
+                    include_file = include_file .. ".tex"
+                end
+                table.insert(files, include_file)
+            end
+        end
+        file:close()
+    end
+
+    return files
+end
+
+local function count_words_in_file(filepath)
+    local file = io.open(filepath, "r")
+    if not file then
+        return 0
+    end
+
+    local content = ""
+    for line in file:lines() do
+        -- Remove LaTeX commands and comments for better word counting
+        line = line:gsub("\\%a+%b{}", "") -- Remove commands like \command{arg}
+        line = line:gsub("\\%a+", "") -- Remove single LaTeX commands like \command
+        line = line:gsub("%%.*", "")  -- Remove comments
+        content = content .. " " .. line
+    end
+
+    file:close()
+
+    -- Count words in the sanitized content
+    local _, word_count = content:gsub("%S+", "")
+    return word_count
+end
+
+local function WordCount()
+    -- Get the full path of the current buffer
+    local main_file = vim.fn.expand("%:p")
+    if main_file == "" then
+        print("No file detected!")
+        return
+    end
+
+    -- Initialize total word count
+    local total_word_count = 0
+
+    -- Process the main file and included files
+    local files_to_process = { main_file }
+    local processed_files = {}
+
+    while #files_to_process > 0 do
+        local current_file = table.remove(files_to_process)
+        if not processed_files[current_file] then
+            -- Mark the file as processed
+            processed_files[current_file] = true
+
+            -- Count words in the current file
+            total_word_count = total_word_count + count_words_in_file(current_file)
+
+            -- Find and add included files
+            local included_files = get_included_files(current_file)
+            for _, included_file in ipairs(included_files) do
+                local included_path = vim.fn.fnamemodify(included_file, ":p") -- Resolve to absolute path
+                table.insert(files_to_process, included_path)
+            end
+        end
+    end
+
+    -- Print the total word count
+    print("Total Words: " .. total_word_count)
+end
+
+vim.keymap.set("n", "<leader>wc", WordCount, { desc = "Count words in buffer and included files" })
+
+
+vim.keymap.set("n", "<leader>wc", WordCount, { desc = "Count words in buffer" })
+vim.keymap.set("n", "<leader>lw", WordCount, { desc = "Count words in buffer" })
 require('lualine').setup {
     options = { theme = 'gruvbox' },
     sections = {
@@ -55,13 +142,38 @@ require('lualine').setup {
             {
                 -- Custom word count component for .tex files
                 function()
+                    local function total_word_count(filepath)
+                        local total_count = 0
+                        local files_to_process = { filepath }
+                        local processed_files = {}
+
+                        while #files_to_process > 0 do
+                            local current_file = table.remove(files_to_process)
+                            if not processed_files[current_file] then
+                                -- Mark the file as processed
+                                processed_files[current_file] = true
+
+                                -- Count words in the current file
+                                total_count = total_count + count_words_in_file(current_file)
+
+                                -- Find and add included files
+                                local included_files = get_included_files(current_file)
+                                for _, included_file in ipairs(included_files) do
+                                    local included_path = vim.fn.fnamemodify(included_file, ":p")
+                                    table.insert(files_to_process, included_path)
+                                end
+                            end
+                        end
+
+                        return total_count
+                    end
+
                     if vim.bo.filetype == 'tex' then
-                        local text = vim.api.nvim_buf_get_lines(0, 0, -1, false)
-                        local content = table.concat(text, " ")
-                        -- Count words ignoring LaTeX commands
-                        local _, word_count = content:gsub("%S+", function(word)
-                            return not word:match("^\\") and word
-                        end)
+                        local main_file = vim.fn.expand("%:p")
+                        if main_file == "" then
+                            return "Words: 0"
+                        end
+                        local word_count = total_word_count(main_file)
                         return "Words: " .. word_count
                     else
                         return ''
@@ -75,4 +187,3 @@ require('lualine').setup {
         }
     }
 }
-

@@ -21,13 +21,7 @@ vim.keymap.set('n', '<Leader>ls', ':VimtexStop<CR>', { desc = "Vimtex Stop" })
 vim.keymap.set('n', '<Leader>lc', ':VimtexClean<CR>', { desc = "Vimtex Clean" })
 vim.keymap.set('n', '<Leader>lr', ':VimtexRecompile<CR>', { desc = "Vimtex Recompile" })
 
-function WordCount()
-  local wc = vim.fn.wordcount()
-  print("Words: " .. wc.words)
-end
 
-vim.keymap.set("n", "<leader>wc", WordCount, { desc = "Count words in buffer" })
-vim.keymap.set("n", "<leader>lw", WordCount, { desc = "Count words in buffer" })
 
 
 if vim.fn.has('autocmd') == 1 then
