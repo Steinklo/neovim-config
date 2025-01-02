@@ -73,8 +73,8 @@ function ToggleFloatingTerminal()
 end
 
 -- Keymaps for both Normal and Terminal modes
-vim.api.nvim_set_keymap('n', '<C-%>', ':lua ToggleFloatingTerminal()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('t', '<C-%>', [[<C-\><C-n>:lua ToggleFloatingTerminal()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-t>', ':lua ToggleFloatingTerminal()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<C-t>', [[<C-\><C-n>:lua ToggleFloatingTerminal()<CR>]], { noremap = true, silent = true })
 
 -- Map <Esc> to close the terminal in Terminal mode
 vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>:lua ToggleFloatingTerminal()<CR>]], { noremap = true, silent = true })
