@@ -59,6 +59,8 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
+  -- Terminal
+  'akinsho/nvim-toggleterm.lua',
 
   -- Markdown Preview
   {
