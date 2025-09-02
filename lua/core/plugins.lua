@@ -44,9 +44,25 @@ require('lazy').setup({
       vim.g.vimtex_view_method = "zathura"
     end
   },
+
+  -- in your plugin list for lazy.nvim
+  {
+    "nvimtools/none-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      local null_ls = require("null-ls")
+      null_ls.setup({
+        sources = {
+          null_ls.builtins.formatting.prettier,
+          null_ls.builtins.formatting.stylua
+        },
+        on_attach = require("core.plugin_config.lsp").on_attach, -- or your on_attach if exported
+      })
+    end,
+  },
+
   -- Filetree
   'nvim-tree/nvim-tree.lua',
-  'jose-elias-alvarez/null-ls.nvim',
 
   -- Autocompletion
   'github/copilot.vim',

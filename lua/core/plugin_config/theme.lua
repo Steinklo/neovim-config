@@ -148,27 +148,6 @@ require('lualine').setup {
                     directory = '',
                 },
             }
-        },
-        lualine_c = {
-            'filename',
-            {
-                -- Custom word count component for .tex files
-                function()
-                    if vim.bo.filetype == 'tex' then
-                        local main_file = vim.fn.expand("%:p")
-                        if main_file == "" then
-                            return "Words: 0"
-                        end
-                        return "Words: " .. word_count()
-                    else
-                        return ''
-                    end
-                end,
-                cond = function()
-                    return vim.bo.filetype == 'tex'
-                end,
-                color = { fg = '#b8bb26', gui = 'bold' }, -- Optional styling for the word count display
-            }
         }
     }
 }

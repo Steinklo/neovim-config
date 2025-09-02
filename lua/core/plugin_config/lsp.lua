@@ -59,34 +59,28 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+local mason_lspconfig = require("mason-lspconfig")
 
-mason_lspconfig.setup {
+mason_lspconfig.setup({
   ensure_installed = vim.tbl_keys(servers),
-}
+  -- v2 tries to call vim.lsp.enable(); turn it off since you set up via lspconfig
+  automatic_enable = false,
+})
 
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
+-- Replace setup_handlers with a plain loop (v2 no longer has setup_handlers)
+local lspconfig = require("lspconfig")
+
+for server_name, server_settings in pairs(servers) do
+  if lspconfig[server_name] then
+    lspconfig[server_name].setup({
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
-    }
-  end,
-}
-
--- Set up null-ls for additional formatting (Prettier and other formatters)
-local null_ls = require('null-ls')
-
-null_ls.setup({
-  sources = {
-    null_ls.builtins.formatting.prettier, -- Prettier for JS/TS/HTML/CSS formatting
-    null_ls.builtins.formatting.stylua,   -- Lua formatter
-    null_ls.builtins.diagnostics.eslint,  -- ESLint for JS/TS linting
-    -- Add more formatters or linters as needed
-  },
-  on_attach = on_attach,
-})
+      settings = server_settings,
+    })
+  else
+    vim.notify(("lspconfig has no server '%s'"):format(server_name), vim.log.levels.WARN)
+  end
+end
 
 -- [[ Configure nvim-cmp ]]
 -- Set up completion
@@ -117,3 +111,5 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+return { on_attach = on_attach }
