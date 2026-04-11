@@ -29,9 +29,3 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "tex",
-  callback = function()
-    vim.b.copilot_enabled = false
-  end,
-})

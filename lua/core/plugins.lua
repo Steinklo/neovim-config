@@ -1,13 +1,13 @@
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system {
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.uv.fs_stat(lazypath) then
+  vim.fn.system({
     'git',
     'clone',
     '--filter=blob:none',
     'https://github.com/folke/lazy.nvim.git',
-    '--branch=stable', -- latest stable release
+    '--branch=stable',
     lazypath,
-  }
+  })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -15,48 +15,39 @@ require('lazy').setup({
   -- Git
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
-
-  -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
+  -- LSP
   {
-    -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
-      -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
       'williamboman/mason-lspconfig.nvim',
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
+      { 'j-hui/fidget.nvim',       opts = {} },
       'folke/neodev.nvim',
     },
   },
+
+  -- LaTeX
   {
-    "lervag/vimtex",
-    lazy = false, -- we don't want to lazy load VimTeX
-    -- tag = "v2.15", -- uncomment to pin to a specific release
+    'lervag/vimtex',
+    lazy = false,
     init = function()
-      -- VimTeX configuration goes here, e.g.
-      vim.g.vimtex_view_method = "zathura"
-    end
+      vim.g.vimtex_view_method = 'zathura'
+    end,
   },
 
-  -- in your plugin list for lazy.nvim
+  -- Formatters / linters (LSP keymaps are attached via LspAttach in lsp.lua)
   {
-    "nvimtools/none-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    'nvimtools/none-ls.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local null_ls = require("null-ls")
-      null_ls.setup({
+      local none_ls = require('null-ls')
+      none_ls.setup({
         sources = {
-          null_ls.builtins.formatting.prettier,
-          null_ls.builtins.formatting.stylua
+          none_ls.builtins.formatting.prettier,
+          none_ls.builtins.formatting.stylua,
         },
-        on_attach = require("core.plugin_config.lsp").on_attach, -- or your on_attach if exported
       })
     end,
   },
@@ -64,8 +55,7 @@ require('lazy').setup({
   -- Filetree
   'nvim-tree/nvim-tree.lua',
 
-  -- Autocompletion
-  'github/copilot.vim',
+  -- Completion
   {
     'hrsh7th/nvim-cmp',
     dependencies = {
@@ -75,39 +65,29 @@ require('lazy').setup({
       'rafamadriz/friendly-snippets',
     },
   },
+
   -- Terminal
   'akinsho/nvim-toggleterm.lua',
 
-  -- Markdown Preview
+  -- Markdown preview
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-    build = "cd app && npm install",
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
     init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_filetypes = { 'markdown' }
     end,
-    ft = { "markdown" },
+    ft = { 'markdown' },
   },
 
-  -- Useful plugin to show you pending keybinds.
+  -- Pending-keybind hints
   {
-    "folke/which-key.nvim",
-    event = "VeryLazy",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-    keys = {
-      {
-        "<leader>?",
-        function()
-          require("which-key").show({ global = false })
-        end,
-        desc = "Buffer Local Keymaps (which-key)",
-      },
-    },
+    'folke/which-key.nvim',
+    event = 'VeryLazy',
+    opts = {},
   },
+
+  -- Git signs in the gutter
   {
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -121,53 +101,53 @@ require('lazy').setup({
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
           { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+        vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk,
+          { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk,
-          { buffer = bufnr, desc = '[H]unk [P]review ' })
+          { buffer = bufnr, desc = '[H]unk [P]review' })
       end,
     },
   },
-  -- Tests
-  'nvim-neotest/neotest',
-
-  -- Dap
-  'mfussenegger/nvim-dap',
-  'leoluz/nvim-dap-go',
-  'rcarriga/nvim-dap-ui',
-  'simrat39/rust-tools.nvim',
 
   -- Theme
-  { "ellisonleao/gruvbox.nvim",            priority = 1000,  config = true },
+  { 'ellisonleao/gruvbox.nvim',            priority = 1000, config = true },
+
   -- Statusline
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' }
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
   },
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl",     opts = {} },
 
-  -- "gc" to comment visual regions/lines
+  -- Indent guides
+  { 'lukas-reineke/indent-blankline.nvim', main = 'ibl',    opts = {} },
+
+  -- "gc" to comment lines
   { 'numToStr/Comment.nvim',               opts = {} },
 
-  -- Fuzzy Finder (files, lsp, etc)
+  -- Fuzzy finder
   { 'nvim-telescope/telescope.nvim',       branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
-
-  -- Fuzzy Finder Algorithm which requires local dependencies to be built.
   {
     'nvim-telescope/telescope-fzf-native.nvim',
-    -- NOTE: If you are having trouble with this installation,
-    --       refer to the README for telescope-fzf-native for more instructions.
     build = 'make',
     cond = function()
-      return vim.fn.executable 'make' == 1
+      return vim.fn.executable('make') == 1
     end,
   },
 
+  -- Treesitter (v1.0 / main branch).
+  -- Pinned to the last commit that supports Nvim 0.11 (current stable).
+  -- The next upstream commit (c82bf96f) requires 0.12+. Drop this pin
+  -- once Nvim 0.12 is released and installed.
   {
-    -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
+    branch = 'main',
+    commit = '90cd6580',
+    lazy = false,
+    build = function()
+      require('nvim-treesitter').update()
+    end,
     dependencies = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
+      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
     },
-    build = ':TSUpdate',
   },
 }, {})

@@ -119,10 +119,8 @@ local function WordCount()
 end
 
 vim.keymap.set("n", "<leader>wc", WordCount, { desc = "Count words in buffer and included files" })
+vim.keymap.set("n", "<leader>lw", WordCount, { desc = "Count words in buffer and included files" })
 
-
-vim.keymap.set("n", "<leader>wc", WordCount, { desc = "Count words in buffer" })
-vim.keymap.set("n", "<leader>lw", WordCount, { desc = "Count words in buffer" })
 require('lualine').setup {
     options = { theme = 'gruvbox' },
     sections = {
@@ -136,10 +134,7 @@ require('lualine').setup {
                 max_length = vim.o.columns * 2 / 3,
                 filetype_names = {
                     TelescopePrompt = 'Telescope',
-                    dashboard = 'Dashboard',
-                    packer = 'Packer',
                     fzf = 'FZF',
-                    alpha = 'Alpha'
                 },
                 use_mode_colors = true,
                 symbols = {

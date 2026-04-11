@@ -1,54 +1,38 @@
--- Enable filetype detection and plugins, necessary for VimTeX
-vim.cmd('filetype plugin indent on')
+vim.g.maplocalleader = ','
 
--- Enable syntax highlighting
-vim.cmd('syntax enable')
+vim.keymap.set('n', '<Leader>lt', ':VimtexTocToggle<CR>', { desc = 'Vimtex Table of Contents' })
+vim.keymap.set('n', '<Leader>ll', ':VimtexCompile<CR>', { desc = 'Vimtex Compile' })
+vim.keymap.set('n', '<Leader>lv', ':VimtexView<CR>', { desc = 'Vimtex View' })
+vim.keymap.set('n', '<Leader>ls', ':VimtexStop<CR>', { desc = 'Vimtex Stop' })
+vim.keymap.set('n', '<Leader>lc', ':VimtexClean<CR>', { desc = 'Vimtex Clean' })
+vim.keymap.set('n', '<Leader>lr', ':VimtexRecompile<CR>', { desc = 'Vimtex Recompile' })
 
--- Set the custom viewer for VimTeX to SumatraPDF with the full path
-vim.g.vimtex_view_method = 'general'
-vim.g.vimtex_view_general_viewer = 'C:/Users/david/AppData/Local/SumatraPDF/SumatraPDF.exe'
-vim.g.vimtex_view_general_options = '-reuse-instance -forward-search @tex @line @pdf'
+vim.api.nvim_create_augroup('format_tex_on_save', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = 'format_tex_on_save',
+  pattern = '*.tex',
+  callback = function()
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+    local new_lines = {}
 
-
--- Change the local leader key (optional)
-vim.g.maplocalleader = ","
-
--- Key mappings for VimTeX (using Neovim 0.7+)
-vim.keymap.set('n', '<Leader>lt', ':VimtexTocToggle<CR>', { desc = "Vimtex Table of Contents" })
-vim.keymap.set('n', '<Leader>ll', ':VimtexCompile<CR>', { desc = "Vimtex Compile" })
-vim.keymap.set('n', '<Leader>lv', ':VimtexView<CR>', { desc = "Vimtex View" })
-vim.keymap.set('n', '<Leader>ls', ':VimtexStop<CR>', { desc = "Vimtex Stop" })
-vim.keymap.set('n', '<Leader>lc', ':VimtexClean<CR>', { desc = "Vimtex Clean" })
-vim.keymap.set('n', '<Leader>lr', ':VimtexRecompile<CR>', { desc = "Vimtex Recompile" })
-
-
-
-
-if vim.fn.has('autocmd') == 1 then
-  vim.api.nvim_create_augroup("format_tex_on_save", { clear = true })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    group = "format_tex_on_save",
-    pattern = "*.tex",
-    callback = function()
-      local lines = vim.fn.getline(1, '$')
-      local new_lines = {}
-
-      for _, line in ipairs(lines) do
-        while #line > 80 do
-          local linePos = 80
-          for i = 80, 1, -1 do
-            if line:sub(i, i):match("[,%. ]") then
-              linePos = i
-              table.insert(new_lines, line:sub(1, linePos))
-              break
-            end
+    for _, line in ipairs(lines) do
+      while #line > 80 do
+        local break_pos
+        for i = 80, 1, -1 do
+          if line:sub(i, i):match('[,%. ]') then
+            break_pos = i
+            break
           end
-          line = line:sub(linePos + 1)
         end
-        table.insert(new_lines, line)
+        -- Fall back to a hard cut at 80 if no natural break point is found,
+        -- otherwise the loop would never consume the line.
+        break_pos = break_pos or 80
+        table.insert(new_lines, line:sub(1, break_pos))
+        line = line:sub(break_pos + 1)
       end
+      table.insert(new_lines, line)
+    end
 
-      vim.fn.setline(1, new_lines)
-    end,
-  })
-end
+    vim.api.nvim_buf_set_lines(0, 0, -1, false, new_lines)
+  end,
+})
