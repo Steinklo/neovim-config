@@ -14,14 +14,12 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Git
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
-  'tpope/vim-sleuth',
 
   -- LSP
   {
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', config = true },
+      'williamboman/mason.nvim',
       'williamboman/mason-lspconfig.nvim',
       { 'j-hui/fidget.nvim',       opts = {} },
       'folke/neodev.nvim',
@@ -134,14 +132,9 @@ require('lazy').setup({
     end,
   },
 
-  -- Treesitter (v1.0 / main branch).
-  -- Pinned to the last commit that supports Nvim 0.11 (current stable).
-  -- The next upstream commit (c82bf96f) requires 0.12+. Drop this pin
-  -- once Nvim 0.12 is released and installed.
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
-    commit = '90cd6580',
     lazy = false,
     build = function()
       require('nvim-treesitter').update()

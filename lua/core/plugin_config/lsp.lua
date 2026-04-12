@@ -63,7 +63,6 @@ local servers = {
   'ts_ls',
   'jsonls',
   'yamlls',
-  'omnisharp',
 }
 
 require('mason').setup()
