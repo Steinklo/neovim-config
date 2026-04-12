@@ -24,13 +24,6 @@ require("nvim-tree").setup({
   }
 })
 
--- Open NvimTree on startup
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    vim.cmd("NvimTreeOpen")
-  end,
-})
-
 vim.keymap.set('n', '<Leader>nc', ':NvimTreeClose<CR>', { desc = "Nvimtree close" })
 vim.keymap.set('n', '<Leader>no', ':NvimTreeOpen<CR>', { desc = "Nvimtree open" })
 vim.keymap.set('n', '<Leader>e', ':NvimTreeFocus<CR>', { desc = "Nvimtree toggle focus" })
