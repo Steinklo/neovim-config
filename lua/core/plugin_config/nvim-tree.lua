@@ -20,23 +20,6 @@ require("nvim-tree").setup({
   on_attach = on_attach,
   view = {
     adaptive_size = true
-  },
-  filters = {
-    custom = {
-      "\\.aux$",
-      "\\.pdf$",
-      "\\.lof$",
-      "\\.log$",
-      "\\.lot$",
-      "\\.fls$",
-      "\\.out$",
-      "\\.toc$",
-      "\\.fmt$",
-      "\\.fot$",
-      "\\.cb$",
-      "\\.cb2$",
-      "\\.lb$"
-    }
   }
 })
 

@@ -23,8 +23,6 @@ lua/core/
 | Syntax | treesitter (+ textobjects) |
 | Git | vim-fugitive, gitsigns |
 | UI | gruvbox, lualine, which-key, indent-blankline |
-| Terminal | toggleterm (floating) |
-| Language | vimtex (LaTeX → zathura), markdown-preview |
 | Editing | Comment.nvim |
 
 ## LSP Servers
@@ -44,7 +42,6 @@ Installed and managed automatically via Mason.
 | `<leader>s` | Find and replace word under cursor |
 | `Shift+H/L` | Cycle buffers |
 | `<leader>q` | Close buffer |
-| `Ctrl+T` | Floating terminal |
 | `Ctrl+U/D` | Half-page scroll (centered) |
 
 ### Telescope
@@ -80,26 +77,15 @@ Installed and managed automatically via Mason.
 | `]m` / `[m` | Next / prev function |
 | `<leader>a/A` | Swap parameter forward / back |
 
-### LaTeX (vimtex)
-
-| Key | Action |
-|-----|--------|
-| `<leader>ll` | Compile |
-| `<leader>lv` | View in zathura |
-| `<leader>lc` | Clean aux files |
-| `<leader>wc` | Word count |
-
 ### Git & Files
 
 | Key | Action |
 |-----|--------|
 | `<leader>gf` | Fugitive (git status) |
 | `<leader>e` | Toggle file tree |
-| `<leader>mp` | Markdown preview |
 
 ## Requirements
 
 - Neovim ≥ 0.9
 - A [Nerd Font](https://www.nerdfonts.com/) for icons
 - `ripgrep` for Telescope live grep
-- `zathura` for LaTeX PDF viewing

@@ -26,15 +26,6 @@ require('lazy').setup({
     },
   },
 
-  -- LaTeX
-  {
-    'lervag/vimtex',
-    lazy = false,
-    init = function()
-      vim.g.vimtex_view_method = 'zathura'
-    end,
-  },
-
   -- Formatters / linters (LSP keymaps are attached via LspAttach in lsp.lua)
   {
     'nvimtools/none-ls.nvim',
@@ -62,20 +53,6 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
       'rafamadriz/friendly-snippets',
     },
-  },
-
-  -- Terminal
-  'akinsho/nvim-toggleterm.lua',
-
-  -- Markdown preview
-  {
-    'iamcco/markdown-preview.nvim',
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = 'cd app && npm install',
-    init = function()
-      vim.g.mkdp_filetypes = { 'markdown' }
-    end,
-    ft = { 'markdown' },
   },
 
   -- Pending-keybind hints
