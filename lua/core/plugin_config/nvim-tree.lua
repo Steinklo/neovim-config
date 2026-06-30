@@ -12,8 +12,6 @@ local function on_attach(bufnr)
 
   -- Esc: defocus the tree (jump back to previous window), keep tree open
   vim.keymap.set("n", "<Esc>", "<C-w>p", opts("Defocus tree"))
-  -- <leader>e while inside the tree: close it
-  vim.keymap.set("n", "<leader>e", api.tree.close, opts("Close tree"))
 end
 
 require("nvim-tree").setup({
@@ -23,7 +21,5 @@ require("nvim-tree").setup({
   }
 })
 
-vim.keymap.set('n', '<Leader>nc', ':NvimTreeClose<CR>', { desc = "Nvimtree close" })
-vim.keymap.set('n', '<Leader>no', ':NvimTreeOpen<CR>', { desc = "Nvimtree open" })
-vim.keymap.set('n', '<Leader>e', ':NvimTreeFocus<CR>', { desc = "Nvimtree toggle focus" })
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { silent = true, desc = "Toggle file tree" })
 

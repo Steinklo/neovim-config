@@ -2,25 +2,20 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<Space>", "<Nop>")
 
 -- Move lines in visual mode
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up" })
 
--- Route yank/paste/delete through the system clipboard ("+" register)
-vim.keymap.set({ "n", "v" }, "p", [["+p]])
-vim.keymap.set({ "n", "v" }, "P", [["+P]])
+-- Yank to the system clipboard ("+" register); deletes/pastes use Vim's own registers
 vim.keymap.set({ "n", "v" }, "y", [["+y]])
 vim.keymap.set({ "n", "v" }, "Y", [["+Y]])
-vim.keymap.set({ "n", "v" }, "d", [["+d]])
-vim.keymap.set({ "n", "v" }, "D", [["+D]])
-vim.keymap.set({ "n", "v" }, "x", [["+x]])
 
 -- Text editing
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace text" })
 
 -- Buffer
-vim.keymap.set("n", "<s-h>", ":bp <CR>")
-vim.keymap.set("n", "<s-l>", ":bn <CR>")
-vim.keymap.set("n", "<leader>q", ":bd <CR>", { desc = "Close buffer" })
+vim.keymap.set("n", "<S-h>", ":bp<CR>", { silent = true, desc = "Previous buffer" })
+vim.keymap.set("n", "<S-l>", ":bn<CR>", { silent = true, desc = "Next buffer" })
+vim.keymap.set("n", "<leader>q", ":bd<CR>", { silent = true, desc = "Close buffer" })
 
 function CloseOtherBuffers()
     local current_buf = vim.fn.bufnr('%')

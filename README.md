@@ -21,7 +21,6 @@ lua/core/
 | Completion | nvim-cmp, LuaSnip |
 | Navigation | telescope (+ fzf), nvim-tree |
 | Syntax | treesitter (+ textobjects) |
-| Git | vim-fugitive, gitsigns |
 | UI | gruvbox, lualine, which-key, indent-blankline |
 | Editing | Comment.nvim |
 
@@ -44,16 +43,14 @@ Installed and managed automatically via Mason.
 | `<leader>q` | Close buffer |
 | `Ctrl+U/D` | Half-page scroll (centered) |
 
-### Telescope
+### Telescope (find)
 
 | Key | Action |
 |-----|--------|
 | `<leader>ff` | Find files |
-| `<leader>fg` | Git files |
-| `<leader>fi` | Live grep |
-| `<leader>fb` | Buffers |
-| `<leader>?` | Recent files |
-| `<leader>/` | Fuzzy search in buffer |
+| `<leader>fi` | Find in files (grep) |
+| `<leader>fr` | Find recent files |
+| `<leader>/` | Search in current buffer |
 
 ### LSP
 
@@ -65,7 +62,9 @@ Installed and managed automatically via Mason.
 | `<leader>r` | Rename |
 | `<leader>ca` | Code action |
 | `<leader>=` | Format buffer |
-| `[g` / `]g` | Prev / next diagnostic |
+| `<leader>do` | Open float diagnostic |
+| `<leader>dl` | Diagnostics list |
+| `[d` / `]d` | Prev / next diagnostic |
 
 ### Treesitter Textobjects
 
@@ -73,15 +72,11 @@ Installed and managed automatically via Mason.
 |-----|--------|
 | `af/if` | Select function (outer/inner) |
 | `aa/ia` | Select parameter |
-| `ac/ic` | Select class |
-| `]m` / `[m` | Next / prev function |
-| `<leader>a/A` | Swap parameter forward / back |
 
-### Git & Files
+### Files
 
 | Key | Action |
 |-----|--------|
-| `<leader>gf` | Fugitive (git status) |
 | `<leader>e` | Toggle file tree |
 
 ## Requirements

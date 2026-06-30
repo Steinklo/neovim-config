@@ -8,36 +8,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.keymap.set('n', keys, func, { buffer = bufnr, desc = 'LSP: ' .. desc })
     end
 
-    nmap('<leader>r',  vim.lsp.buf.rename,                             '[R]ename')
-    nmap('<leader>ca', vim.lsp.buf.code_action,                        '[C]ode [A]ction')
+    nmap('<leader>r',  vim.lsp.buf.rename,                          'Rename')
+    nmap('<leader>ca', vim.lsp.buf.code_action,                     'Code action')
 
-    nmap('gd',         vim.lsp.buf.definition,                         '[G]oto [D]efinition')
-    nmap('gD',         vim.lsp.buf.declaration,                        '[G]oto [D]eclaration')
-    nmap('gr',         require('telescope.builtin').lsp_references,    '[G]oto [R]eferences')
-    nmap('gi',         vim.lsp.buf.implementation,                     '[G]oto [I]mplementation')
+    nmap('gd',         vim.lsp.buf.definition,                      'Goto definition')
+    nmap('gD',         vim.lsp.buf.declaration,                     'Goto declaration')
+    nmap('gr',         require('telescope.builtin').lsp_references, 'Goto references')
+    nmap('gi',         vim.lsp.buf.implementation,                  'Goto implementation')
 
-    nmap('K',          vim.lsp.buf.hover,                              'Hover Documentation')
-    nmap('<C-k>',      vim.lsp.buf.signature_help,                     'Signature Documentation')
-
-    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder,               '[W]orkspace [A]dd Folder')
-    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder,            '[W]orkspace [R]emove Folder')
-    nmap('<leader>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, '[W]orkspace [L]ist Folders')
+    nmap('K',          vim.lsp.buf.hover,                           'Hover documentation')
+    nmap('<C-k>',      vim.lsp.buf.signature_help,                  'Signature help')
 
     vim.keymap.set('n', '<leader>=', function()
       vim.lsp.buf.format({ async = true })
-    end, { buffer = bufnr, desc = 'LSP: Format the current buffer' })
+    end, { buffer = bufnr, desc = 'LSP: Format buffer' })
   end,
 })
 
 -- Diagnostics keymaps (global, not buffer-scoped)
-vim.keymap.set('n', '[g', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+vim.keymap.set('n', '[d', function() vim.diagnostic.jump({ count = -1, float = true }) end,
   { desc = 'Previous diagnostic' })
-vim.keymap.set('n', ']g', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+vim.keymap.set('n', ']d', function() vim.diagnostic.jump({ count = 1, float = true }) end,
   { desc = 'Next diagnostic' })
-vim.keymap.set('n', '<leader>go', vim.diagnostic.open_float, { desc = 'Open floating diagnostic' })
-vim.keymap.set('n', '<leader>gl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '<leader>do', vim.diagnostic.open_float, { desc = 'Open float diagnostic' })
+vim.keymap.set('n', '<leader>dl', vim.diagnostic.setloclist, { desc = 'Diagnostics list' })
 
 -- Better Lua LSP experience when editing Neovim config
 require('neodev').setup()
