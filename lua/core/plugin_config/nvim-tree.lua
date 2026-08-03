@@ -21,5 +21,5 @@ require("nvim-tree").setup({
   }
 })
 
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { silent = true, desc = "Toggle file tree" })
+vim.keymap.set('n', '<leader>e', ':NvimTreeFocus<CR>', { silent = true, desc = "Open/focus file tree" })
 

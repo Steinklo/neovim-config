@@ -77,7 +77,7 @@ Installed and managed automatically via Mason.
 
 | Key | Action |
 |-----|--------|
-| `<leader>e` | Toggle file tree |
+| `<leader>e` | Open/focus file tree |
 
 ## Requirements
 
